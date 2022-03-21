@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+  \begin{axis}[
+    xlabel={$x$ [Bohr]},
+    ylabel={$\phi_n(x)$ [au]},
+    no marks,
+    xmin=-30, xmax=30,
+    legend style={
+      cells={anchor=west},
+      at={(0.05,0.05)},
+      anchor=south west
+    },
+    width=8cm, height=7cm]
+    \addplot table [x index=0, y expr=(\thisrowno{1}-0.5), restrict x to domain=-30:30]{inputs_part1/case1.1.bound_states};
+    \addlegendentry{$n=1$}
+    \addplot+ table [x index=0, y expr=(\thisrowno{2}-2.32904542e-01), restrict x to domain=-30:30]{inputs_part1/case1.1.bound_states};
+    \addlegendentry{$n=2$}
+    \addplot+ table [x index=0, y expr=(\thisrowno{3}-1.33829395e-01), restrict x to domain=-30:30]{inputs_part1/case1.1.bound_states};
+    \addlegendentry{$n=3$}
+    \addplot+ table [x index=0, y expr=(\thisrowno{4}-8.47781633e-02), restrict x to domain=-30:30]{inputs_part1/case1.1.bound_states};
+    \addlegendentry{$n=4$}
+    \addplot+ table [x index=0, y expr=(\thisrowno{5}-5.88575247e-02), restrict x to domain=-30:30]{inputs_part1/case1.1.bound_states};
+    \addlegendentry{$n=5$}
+    \addplot[black,very thick] table [x index=0, y index=1, restrict x to domain=-30:30,restrict y to domain=-10:5]{inputs_part1/case1.1.potential};
+  \end{axis}
+\end{tikzpicture}

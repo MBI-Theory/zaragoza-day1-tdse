@@ -1,0 +1,34 @@
+\begin{tikzpicture}
+  \begin{semilogyaxis}[
+    xticklabels=\empty,
+    ylabel={\(|D_a|^2\) [au]},
+    ymin=1e-7, ymax=1e7,
+    no marks,
+    width=8cm, height=7cm]
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=1, restrict x to domain=0:60]{inputs_part3/case2.1.hhg};
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=1, restrict x to domain=0:60]{inputs_part3/case2.2.hhg};
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=1, restrict x to domain=0:60]{inputs_part3/case2.3.hhg};
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=1, restrict x to domain=0:60]{inputs_part3/case2.4.hhg};
+
+    \addplot[black,dashed] coordinates {(10,1e-7) (10,1e7)};
+    \addplot[black] coordinates {(29.18,1e-7) (29.18,1e7)};
+  \end{semilogyaxis}
+  \begin{semilogyaxis}[
+    xlabel={\(E\) [\(\omega\)]},
+    ylabel={\(|D_l|^2\) [au]},
+    no marks,
+    width=8cm, height=7cm,
+    at={(0,-5.5cm)}]
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=2, restrict x to domain=0:60]{inputs_part3/case2.1.hhg};
+    \addlegendentry{\(x_{\textrm{max}}=\SI{200}{Bohr}\)}
+    
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=2, restrict x to domain=0:60]{inputs_part3/case2.2.hhg};
+    \addlegendentry{\(x_{\textrm{max}}=\SI{70}{Bohr}\)}
+    
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=2, restrict x to domain=0:60]{inputs_part3/case2.3.hhg};
+    \addlegendentry{\(x_{\textrm{max}}=\SI{60}{Bohr}\)}
+    
+    \addplot table [x expr={\thisrowno{0}/0.05}, y index=2, restrict x to domain=0:60]{inputs_part3/case2.4.hhg};
+    \addlegendentry{\(x_{\textrm{max}}=\SI{50}{Bohr}\)}
+  \end{semilogyaxis}
+\end{tikzpicture}

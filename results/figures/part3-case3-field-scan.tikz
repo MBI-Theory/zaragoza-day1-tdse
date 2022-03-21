@@ -1,0 +1,59 @@
+\begin{tikzpicture}
+  \begin{semilogyaxis}[
+    xticklabels=\empty,
+    ylabel={$P$ [au]},
+    legend style={
+      cells={anchor=west},
+      at={(0.05,0.05)},
+      anchor=south west
+    },
+    width=8cm, height=7cm,
+    ymin=1e-7, ymax=1e-1,
+    no marks]
+    \addplot table [x index=2, y index=4]{inputs_part3/case3.population};
+    \addlegendentry{Ionization yield}
+
+    \addplot table [x index=2, y expr=(1-\thisrowno{5})]{inputs_part3/case3.population};
+    \addlegendentry{\(1-\)Ground state population}
+
+    \addplot table [x index=2, y index=6]{inputs_part3/case3.population};
+    \addlegendentry{Excited population}
+
+    \addplot[no marks, blue] coordinates {(45.45,1e-7) (45.45,1e-1)};
+    \addplot[no marks, red] coordinates {(38.46,1e-7) (38.46,1e-1)};
+  \end{semilogyaxis}
+  \begin{semilogyaxis}[
+    xlabel={$1/F$ [au]},
+    ylabel={$P$ [au]},
+    legend columns=3,
+    legend style={
+      cells={anchor=west},
+      at={(0.05,0.05)},
+      anchor=south west
+    },
+    width=8cm, height=7cm,
+    at={(0,-5.5cm)},
+    ymin=1e-16, ymax=1e1,,
+    no marks]
+    \addplot table [x index=2, y index=7]{inputs_part3/case3.population};
+    \addlegendentry{\(n=1\)}
+
+    \addplot table [x index=2, y index=8]{inputs_part3/case3.population};
+    \addlegendentry{\(n=2\)}
+
+    \addplot table [x index=2, y index=9]{inputs_part3/case3.population};
+    \addlegendentry{\(n=3\)}
+
+    \addplot table [x index=2, y index=10]{inputs_part3/case3.population};
+    \addlegendentry{\(n=4\)}
+
+    \addplot table [x index=2, y index=11]{inputs_part3/case3.population};
+    \addlegendentry{\(n=5\)}
+
+    \addplot table [x index=2, y index=12]{inputs_part3/case3.population};
+    \addlegendentry{\(n=6\)}
+
+    \addplot[no marks, blue] coordinates {(45.45,1e-16) (45.45,1e1)};
+    \addplot[no marks, red] coordinates {(38.46,1e-16) (38.46,1e1)};
+  \end{semilogyaxis}
+\end{tikzpicture}

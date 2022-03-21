@@ -1,0 +1,541 @@
+\usepackage[margin=2cm]{geometry}
+\usepackage{multicol}
+
+\usepackage[english=british]{csquotes}
+
+\usepackage[backend=biber,
+style=authoryear,
+date=year,
+doi=true,isbn=false,url=false,
+giveninits=true,
+sortcites=true,
+sorting=none,
+maxcitenames=2,mincitenames=1,
+minbibnames=1,maxbibnames=1,
+uniquelist=false]{biblatex}
+\DeclareNameAlias{author}{last-first}
+\DeclareFieldFormat{pages}{\mkfirstpage[{\mkpageprefix[bookpagination]}]{#1}}
+\renewbibmacro{in:}{}
+\addbibresource{bibliography.bib}
+\newcommand{\citationrequired}{[\textcolor{red}{citation required}]}
+
+% http://tex.stackexchange.com/questions/13048/upright-parentheses-in-italic-text
+% http://tex.stackexchange.com/questions/86112/how-to-get-upright-parentheses-in-the-whole-document
+% http://tex.stackexchange.com/questions/183619/always-upright-parenthesises-and-brackets
+\usepackage[biblatex]{embrac}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+% https://tex.stackexchange.com/a/321802/9742
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcommand{\mc}[1]{\multicolumn{1}{@{}C@{}}{#1}}
+
+\usepackage{empheq}
+\usepackage{fancybox}
+\newcommand{\eqbox}[1]{\doublebox{\ensuremath{\displaystyle #1}}}
+\newcommand{\Eqref}[1]{Eq. \eqref{#1}}
+
+\usepackage{fontspec}
+\setmainfont[Numbers={OldStyle}]{STIX Two Text}
+% \setmainfont{XITS}
+\usepackage[math-style=TeX]{unicode-math}
+% \setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[RawFeature={+ss01}]
+\setmathfont[range={"0426}]{STIX Two Math}
+% \setmonofont{Fira Code} % {DejaVu Sans}
+\setmonofont{JuliaMono}
+
+% \newfontfamily\hiraginofont{Hiragino Kaku Gothic Pro}
+
+\usepackage{ifluatex}
+\ifluatex
+\newfontfamily\emojifont{Apple Color Emoji}[Renderer=Harfbuzz]
+\else
+\newfontfamily\emojifont{STIX Two Math}
+\fi
+\newcommand{\emoji}[1]{{\emojifont #1}}
+
+\usepackage[font=small,labelfont=bf]{caption}
+\DeclareCaptionType{myfig}[Figure][List of figure]
+\newenvironment{myfigure}{}{}
+
+\usepackage{xparse}
+\usepackage{xspace}
+
+\newcount\tmpnum
+\def\storedata#1#2{\tmpnum=0 \edef\tmp{\string#1}\storedataA#2\end}
+\def\storedataA#1{\advance\tmpnum by1
+  \ifx\end#1\else
+\expandafter\def\csname data:\tmp:\the\tmpnum\endcsname{#1}%
+\expandafter\storedataA\fi
+}
+\def\getdata[#1]#2{\csname data:\string#2:#1\endcsname}
+
+\storedata\termcolors{{blue}{green!50!blue}{red}{yellow!50!red}{blue!50!red}}
+\newcommand{\markterm}[2]{\textcolor{\getdata[#1]\termcolors}{#2}}
+
+\newcommand{\error}[1]{\colorbox{red}{#1}}
+\newcommand{\matherror}[1]{\colorbox{red}{\ensuremath{#1}}}
+
+\newcommand{\cc}{\textrm{c.c.}}
+
+% \newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+
+\newcommand{\Tse}{\textrm{Ц}} % TODO: Fix
+
+\newcommand{\linearop}{\mathcal{L}}
+% \newcommand{\Fourier}{\mathcal{F}}
+\newcommand{\Green}{\mathcal{G}}
+\newcommand{\propU}{\mathcal{U}}
+\newcommand{\propUlaser}{\propU_L}
+\newcommand{\EVA}{\textrm{EVA}}
+\newcommand{\propUEVA}{\propU^\EVA}
+\newcommand{\propUEVAV}{\tilde{\propU}^\EVA}
+\newcommand{\SFA}{\textrm{SFA}}
+\newcommand{\propUSFA}{\propU^\SFA}
+\newcommand{\Heaviside}{\Theta}
+\newcommand{\heaviside}{\theta}
+\newcommand{\antisym}{\mathcal{A}}
+\renewcommand{\timeord}{\mathcal{T}}
+\NewDocumentCommand{\eva}{ o m o }{\vec{\IfNoValueTF{#1}{p}{#1}}_T\IfNoValueF{#3}{^{#3}}(#2)}
+\NewDocumentCommand{\volkovphase}{ o m }{\Lambda_{\vec{\IfNoValueTF{#1}{p}{#1}}}(#2)}
+\NewDocumentCommand{\coulombphase}{ o m }{\Theta_{\vec{\IfNoValueTF{#1}{p}{#1}}}(#2)}
+
+\newcommand{\ionstate}[1]{\Phi_{#1}}
+\newcommand{\ionenergy}[1]{E_{#1}}
+\newcommand{\orbitalenergy}[1]{\epsilon_{#1}}
+
+\NewDocumentCommand{\ionpotential}{ o }{I_{\mathrm{p}}\IfNoValueF{#1}{^{#1}}}
+% \NewDocumentCommand{\ionpotential}{ o }{I_{\mathrm{p}\IfNoValueF{#1}{_{#1}}}}
+% \NewDocumentCommand{\ionpotential}{ o }{E\IfNoValueF{#1}{_{#1}}}
+\newcommand{\ponderomotive}{U_{\mathrm{p}}}
+\newcommand{\keldysh}{\gamma}
+
+\newcommand{\ellmax}{\ell_{\textrm{max}}}
+
+\newcommand{\orbital}[1]{\chi_{#1}}
+
+\newcommand{\electronmass}{m_{\mathrm{e}}}
+
+\newcommand{\kineng}{W_{\!\!\!k}}
+\newcommand{\laserinteraction}{V_{\!\!\!L}}
+% \NewDocumentCommand{\vectorpotential}{ o }{\vec{A}\IfNoValueF{#1}{(#1)}}
+\newcommand{\vectorpotential}[1]{\vec{A}(#1)}
+\NewDocumentCommand{\fieldamplitude}{ o }{\vec{F}\IfNoValueF{#1}{(#1)}}
+\NewDocumentCommand{\fieldcomponent}{ o }{\IfNoValueTF{#1}{F}{\tensor{F}{#1}}}
+\newcommand{\integratedvectorpotential}[1]{\vec{G}(#1)}
+\newcommand{\integratedsquaredvectorpotential}[1]{G^{(2)}(#1)}
+
+\newcommand{\dipolemoment}[2]{\vec{a}_{#1}(#2)}
+\newcommand{\conjdipolemoment}[2]{\conj{\vec{a}}_{#1}(#2)}
+\newcommand{\polarizeddipole}[2]{\vec{F}(#2)\cdot\dipolemoment{#1}{#2}}
+\newcommand{\conjpolarizeddipole}[2]{\vec{F}(#2)\cdot\conjdipolemoment{#1}{#2}}
+\newcommand{\saddle}[1]{#1^{\textrm{(st)}}}
+
+\NewDocumentCommand{\polarization}{ o }{\vec{P}\IfNoValueF{#1}{({#1})}}
+\NewDocumentCommand{\polarizationcomponent}{ o }{\IfNoValueTF{#1}{P}{\tensor{P}{#1}}}
+\newcommand{\polarizability}{\alpha}
+\NewDocumentCommand{\hyperpolarizability}{ o }{\IfNoValueTF{#1}{\beta}{\tensor{\beta}{#1}}}
+
+\newcommand{\channel}[1]{\hat{#1}}
+\newcommand{\asympt}[1]{\tilde{#1}}
+\newcommand{\ionic}[1]{\mathfrak{#1}}
+\NewDocumentCommand{\proj}{ o }{\hat{P}\IfNoValueF{#1}{_{#1}}}
+\NewDocumentCommand{\rej}{ o }{\hat{Q}\IfNoValueF{#1}{_{#1}}}
+
+\newcommand{\operator}[1]{\hat{#1}}
+\newcommand{\Hamiltonian}{\operator{H}}
+\newcommand{\hamiltonian}{\operator{h}}
+\newcommand{\Lagrangian}{\operator{L}}
+\NewDocumentCommand{\fock}{ o }{\operator{f}\IfNoValueF{#1}{_{#1}}}
+\newcommand{\identity}{\hat{\mathbb{1}}}
+\newcommand{\dipole}{\operator{D}}
+\newcommand{\kinop}{\operator{T}}
+\newcommand{\angop}{\operator{L}}
+\newcommand{\potop}{\operator{V}}
+\newcommand{\adjoint}[1]{#1^\dagger}
+% \newcommand{\vecop}[1]{\operator{\vec{#1}}}
+
+\newcommand{\slaterhole}[1]{{#1}^{-1}}
+\newcommand{\dyson}[1]{#1}
+
+\newcommand{\bloch}{\mathcal{L}}
+
+\newcommand{\lagrange}[1]{\lambda_{#1}}
+\newcommand{\orthogonality}[2]{\lagrange{#1#2}\braket{#1}{#2}}
+\newcommand{\vary}[1]{\delta_{#1}}
+
+\newcommand{\onebody}[2]{(#1|#2)}
+\newcommand{\twobody}[2]{[#1|#2]}
+\newcommand{\twobodydx}[2]{[#1||#2]}
+
+\newcommand{\coulomb}{\operator{g}}
+\NewDocumentCommand{\direct}{ o }{\operator{J}\IfNoValueF{#1}{_{#1}}}
+\NewDocumentCommand{\exchange}{ o }{\operator{K}\IfNoValueF{#1}{_{#1}}}
+\newcommand{\differentialop}{\operator{L}}
+\newcommand{\integralop}{\operator{K}}
+
+\NewDocumentCommand{\directcorrelation}{ o }{J\IfNoValueF{#1}{_{#1}}}
+\NewDocumentCommand{\exchangecorrelation}{ o }{K\IfNoValueF{#1}{_{#1}}}
+
+\newcommand{\cont}[1]{\tilde{#1}}
+\newcommand{\compconj}{\textrm{c.c.}}
+\newcommand{\slater}[1]{\Phi_{#1}}
+\newcommand{\contslater}[1]{\cont{\Phi}_{#1}}
+\newcommand{\slatershort}[1]{\Bmat{#1}}
+\newcommand{\detmat}[1]{\vmat{#1}}
+
+\newcommand{\imdt}{\im\partial_t\xspace}
+\newcommand{\levicivita}[1]{\epsilon_{#1}}
+\newcommand{\kronecker}[1]{\delta_{#1}}
+
+\newcommand{\cond}[1]{\kappa(#1)}
+\newcommand{\spectrum}[1]{\sigma(#1)}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\resolvent}{\operator{R}}
+
+\newcommand{\corr}{\operatorname{corr}}
+
+\NewDocumentCommand{\create}{ o m }{\operator{\IfNoValueTF{#1}{a}{#1}}^\dagger_{#2}}
+\NewDocumentCommand{\annihilate}{ o m }{\operator{\IfNoValueTF{#1}{a}{#1}}_{#2}}
+
+\newcommand{\permute}[1]{\operator{P}_{#1}}
+
+% % https://tex.stackexchange.com/a/316903/9742
+% \usepackage{pict2e}
+% \makeatletter
+% \DeclareRobustCommand{\divdiff}{\mathrel{\text{\div@diff}}}
+% \newcommand{\div@diff}{%
+% \sbox\z@{$\m@th\bigtriangleup$}%
+% \setlength{\unitlength}{\wd\z@}%
+% \begin{picture}(1,0.69282)
+%   \linethickness{.09ex}
+%   \roundjoin
+%   \polyline(0.1,0)(0.9,0)(0.5,0.69282)(0.1,0)(0.5,0)
+%   \polyline(0.5,0.69282)(0.5,0)
+% \end{picture}%
+% }
+%   \makeatother
+\newcommand{\divdiff}{\textrm{\hiraginofont ⏃}}
+% \newcommand{\divdiff}{❦} % {\symbol{"23C3}} % {⏃}
+
+
+\newcommand{\diffall}{(\mathrm{d})\;}
+\newcommand{\diffexc}[1]{(\mathrm{d}_{#1}')\;}
+\newcommand{\lastcoord}[1]{\tilde{\vec{#1}}}
+\newcommand{\difflast}[1]{(\mathrm{d}\lastcoord{#1})\;}
+\NewDocumentCommand{\density}{ m m o }{\gamma\IfNoValueF{#3}{_{#3}}(#1|#2)}
+\NewDocumentCommand{\Density}{ o m m o }{\Gamma\IfNoValueF{#4}{_{#4}}\IfNoValueF{#1}{^{(#1)}}(#2|#3)}
+
+\NewDocumentCommand{\Determinant}{ m o }{D^{#1}\IfNoValueF{#2}{_{#2}}}
+
+\let\ced\c
+\RenewDocumentCommand{\c}{ o m o }{%
+  \ensuremath{%
+    \IfNoValueF{#1}{#1}%
+    \mathrm{#2}%
+    \IfNoValueF{#3}{^{#3}}%
+  }%
+}
+% \renewcommand{\c}[1]{\ensuremath{\mathrm{#1}}}
+
+% \newcommand{\scatter}[5]{\hat{V}_{{#2}{#3}}^{\textrm{sc}}(#1,{#5}\to{#4})}
+
+\NewDocumentCommand{\STO}{ o }{\zeta_{\IfNoValueTF{#1}{A}{#1}}}
+
+\newcommand{\scatter}[5]{%
+  \matrixel*{#4}%
+  {\hat{V}^{\textrm{sc}}_{#2#3}(#1)}%
+  {#5}%
+}
+
+\newcommand{\expect}[1]{\langle#1\rangle}
+
+\newcommand{\redmatrixel}[3]{\langle#1||#2||#3\rangle}
+\newcommand{\angroot}[1]{{\prod}_{#1}}
+\newcommand{\wignerthreej}[1]{\pmat{#1}}
+\newcommand{\wignersixj}[1]{\Bmat{#1}}
+
+% \newcommand{\program}[1]{\textsc{\MakeLowercase{#1}}}
+\NewDocumentCommand{\program}{s m}{%
+  \textsc{%
+    \IfBooleanTF{#1}{%
+      #2%
+    }{%
+      \MakeLowercase{#2}%
+    }%
+  }%
+}
+\newcommand{\JuliaAtoms}{\program*{JuliaAtoms}\xspace}
+\newcommand{\AtomicLevels}{\program*{AtomicLevels.jl}\xspace}
+\newcommand{\EnergyExpressions}{\program*{EnergyExpressions.jl}\xspace}
+\newcommand{\ContinuumArrays}{\program*{ContinuumArrays.jl}\xspace}
+\newcommand{\Atoms}{\program*{Atoms.jl}\xspace}
+
+% https://tex.stackexchange.com/a/4389
+\makeatletter
+\def\contket{\@ifstar\@contket\@@contket}
+\newcommand\@contket[1]{\ket{\cont{#1}}}
+\newcommand\@@contket[1]{\ket*{\cont{#1}}}
+\def\contbra{\@ifstar\@contbra\@@contbra}
+\newcommand\@contbra[1]{\bra{\cont{#1}}}
+\newcommand\@@contbra[1]{\bra*{\cont{#1}}}
+% https://tex.stackexchange.com/questions/118783/why-doesnt-ifstar-work-inside-a-caption
+\DeclareRobustCommand\term{\@ifstar\@term\@@term}
+\NewDocumentCommand{\@term}{ m m o }{\ensuremath{{^{#1}}\mathrm{#2}^\circ\IfNoValueF{#3}{_{#3}}}}
+\NewDocumentCommand{\@@term}{ m m o }{\ensuremath{{^{#1}}\mathrm{#2}\IfNoValueF{#3}{_{#3}}}}
+\makeatother
+\newcommand{\conf}[1]{\ensuremath{\mathrm{#1}}}
+
+\usepackage{amssymb}
+\usepackage{bm}
+
+\allowdisplaybreaks
+
+% https://texwelt.de/wissen/fragen/1429/wie-kann-ich-eqref-fett-drucken/1430
+\makeatletter
+\renewcommand*\maketag@@@[1]{\hbox{\m@th #1}}
+\makeatother
+
+\usepackage[capitalize]{cleveref}
+
+
+\renewcommand{\vec}[1]{\mathbfit{#1}}
+\renewcommand{\hvec}[1]{\hat{\vec{#1}}}
+\newcommand{\vecell}{𝓵}
+
+\NewDocumentCommand{\ranktensor}{ s m o o }{%
+  \IfBooleanTF{#1}{%
+    \hat{\mathbf{#2}}^{\IfNoValueF{#3}{(#3)}*}\IfNoValueF{#4}{_{#4}} %
+  }{%
+    \hat{\mathbf{#2}}\IfNoValueF{#3}{^{(#3)}}\IfNoValueF{#4}{_{#4}} %
+  }%
+}
+\newcommand{\sphtensor}{\ranktensor{C}}
+\NewDocumentCommand{\gradtensor}{ o o }{\hat{\nabla}\IfNoValueF{#1}{^{(#1)}}\IfNoValueF{#2}{_{#2}}}
+
+\usepackage{tensor}
+
+\DeclareDocumentCommand\matrixelementreduced{ s s m m m }
+{ % Matrix element
+  \IfBooleanTF{#1}
+  {
+    \IfBooleanTF{#2}
+    {\left\langle{#3}\middle\vert\middle\vert{#4}\middle\vert\middle\vert{#5}\right\rangle} % Double starred: total resizing
+    {\vphantom{#3#4#5}\left\langle\smash{#3}\middle\vert\middle\vert\smash{#4}\middle\vert\middle\vert\smash{#5}\right\rangle} % Starred: no resizing
+  }
+  {\vphantom{#4}\left\langle{#3}\middle\vert\middle\vert\smash{#4}\middle\vert\middle\vert{#5}\right\rangle} % Normal: only resize based on bra/ket arguments
+}
+\DeclareDocumentCommand\matrixelred{}{\matrixelementreduced} % Shorthand for \matrixelementreduced
+\DeclareDocumentCommand\melr{}{\matrixelementreduced} % Shorthand for \matrixelementreduced
+
+\RenewDocumentCommand{\comm}{ o m m }{%
+  \left[%
+    \IfNoValueF{#1}{^{#1}\;}%
+    #2,#3\right]%
+}
+
+\def\antisymseparator{\mathord{:}} % {⦄}
+\newcommand{\antisymprod}[2]{#1\antisymseparator#2}
+\newcommand{\abra}[2]{\bra{\antisymprod{#1}{#2}}}
+\newcommand{\aket}[2]{\ket{\antisymprod{#1}{#2}}}
+\newcommand{\abraaket}[4]{\braket{\antisymprod{#1}{#2}}{\antisymprod{#3}{#4}}}
+\newcommand{\abraket}[3]{\braket{\antisymprod{#1}{#2}}{#3}}
+\newcommand{\braaket}[3]{\braket{#1}{#2\antisymseparator#3}}
+\newcommand{\aketabra}[4]{\ketbra{\antisymprod{#1}{#2}}{\antisymprod{#3}{#4}}}
+\newcommand{\channelproj}[2]{\aketabra{#1}{#2}{#1}{#2}}
+
+\makeatletter
+\def\quasileft{⟬}
+\def\quasiright{⟭}
+\def\quasifunction{\@ifstar\@quasifunction\@@quasifunction}
+\newcommand\@quasifunction[1]{\left|#1\right\quasiright}
+\newcommand\@@quasifunction[1]{|#1\quasiright}
+\def\quasimatrixel{\@ifstar\@quasimatrixel\@@quasimatrixel}
+\newcommand\@quasimatrixel[3]{\left\quasileft#1\middle|#2\middle|#3\right\quasiright}
+\newcommand\@@quasimatrixel[3]{\quasileft#1|#2|#3\quasiright}
+\def\quasibraket{\@ifstar\@quasibraket\@@quasibraket}
+\newcommand\@quasibraket[2]{\left\quasileft#1\middle|#2\right\quasiright}
+\newcommand\@@quasibraket[2]{\quasileft#1|#2\quasiright}
+
+\def\bbraket{\@ifstar\@bbraket\@@bbraket}
+\newcommand\@bbraket[2]{\left\lAngle#1\middle|#2\right\rangle}
+\newcommand\@@bbraket[2]{\lAngle#1|#2\rangle}
+
+\def\brakett{\@ifstar\@brakett\@@brakett}
+\newcommand\@brakett[2]{\left\langle#1\middle|#2\right\rAngle}
+\newcommand\@@brakett[2]{\langle#1|#2\rAngle}
+
+\def\matrixell{\@ifstar\@matrixell\@@matrixell}
+\newcommand\@matrixell[3]{\left\langle#1\middle|#2\middle|#3\right\rAngle}
+\newcommand\@@matrixell[3]{\langle#1|#2|#3\rAngle}
+\makeatother
+
+\newcommand{\amatrixela}[5]{\matrixel{\antisymprod{#1}{#2}}{#3}{\antisymprod{#4}{#5}}}
+\newcommand{\amatrixel}[4]{\matrixel{\antisymprod{#1}{#2}}{#3}{#4}}
+
+\newcommand{\BCH}{\operatorname{BCH}}
+\newcommand{\sBCH}{\operatorname{sBCH}}
+
+% \NewDocumentCommand{\Magnus}{ o }{\Omega{\IfNoValueTF{#1}{}{_{\lceil{#1}\rceil}}}}
+\NewDocumentCommand{\Magnus}{ o }{\Omega{\IfNoValueTF{#1}{}{^{(#1)}}}}
+\newcommand{\MagnusTerm}[1]{\Omega_{#1}}
+
+\usepackage{mytodo}
+% \usepackage{todonotes}
+\usepackage{note-headings}
+\usepackage{minted}
+\setminted{frame=leftline,
+  framesep=2mm,
+  baselinestretch=1.2,
+  fontsize=\footnotesize,
+  mathescape}
+\setminted[text]{fontsize=\tiny,
+  xleftmargin=3em,xrightmargin=3em,
+  frame=lines,
+  breaklines=true,
+  breakanywhere=true,
+  breakafter=\{}
+\newenvironment{minted-text}{\VerbatimEnvironment\begin{minted}{text}}{\end{minted}}
+
+\usepackage[load=named,load=physical,binary-units=true]{siunitx}
+\DeclareSIUnit\hartree{Ha}
+\newcommand{\Coulomb}{\textrm{C}}
+
+\usepackage{xcolor}
+\colorlet{dimmed}{black!50!white}
+\colorlet{color0}{black}
+\colorlet{color1}{blue}
+\colorlet{color2}{red}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{math}
+\usetikzlibrary{arrows}
+
+\tikzset{>=stealth}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{colormaps}
+
+\tikzexternalize
+\tikzsetexternalprefix{figures/}
+\makeatletter
+\newcommand{\useexternalfile}[1]{%
+  \tikzsetnextfilename{#1-output}%
+  \input{figures/#1.tikz}}
+\makeatother
+
+\pgfkeys{/pgf/images/include external/.code=\includegraphics{#1}}
+
+\pgfplotsset{every axis legend/.append style={
+    font=\scriptsize
+  }
+}
+
+% https://tex.stackexchange.com/a/350514/9742
+\pgfplotsset{
+  % define the layers you need.
+  % (Don't forget to add `main' somewhere in that list!!)
+  layers/my layer set/.define layer set={
+    background,
+    main,
+    foreground
+  }{
+    % you could state styles here which should be moved to
+    % corresponding layers, but that is not necessary here.
+    % That is why we don't state anything here
+  },
+  % activate the newly created layer set
+  set layers=my layer set,
+}
+
+\tikzset{mydashed/.style={dash pattern=on 5pt off 1pt}}
+\tikzset{mydashdotted/.style={dash pattern=on 2pt off 0.5pt on 0.5pt off 0.5pt}}
+
+\tikzset{
+  photon/.style={-stealth,
+    blue,
+    decorate,
+    decoration={snake,segment length=0.75mm, amplitude=0.3mm, post length=1.5mm}
+  }
+}
+
+\tikzset{
+  irphoton/.style={-stealth,
+    red,
+    decorate,
+    decoration={snake,segment length=1mm, amplitude=0.25mm, post length=1mm}
+  }
+}
+
+\tikzset{
+  level/.style={dimmed, very thin}
+}
+
+\usepackage[compat=1.1.0]{tikz-feynman}
+
+\tikzfeynmanset{
+  every photon = {blue,style={->, >=stealth, decoration={post length=2mm}}},
+  % every vertex = {dot},
+  ion/.style = {fermion, very thick},
+  hhg/.style = {opacity=0.3},
+  multiphoton/.style = {photon, ultra thick},
+  every blob={draw=green!40!black, pattern color=green!40!black},
+}
+
+% https://tex.stackexchange.com/a/398665
+\usetikzlibrary{matrix,fit,positioning}
+\tikzset{
+  mymat/.style={
+    matrix of math nodes,
+    left delimiter=|,
+    right delimiter=|,
+    column 1/.style={anchor=base east},
+    column 2/.style={anchor=base west},
+    column sep=-0.7em
+  },
+  mymats/.style={
+    mymat,
+    nodesmy={draw,fill=#1}
+  }
+}
+
+% \newcommand{\dblsidedfeynman}[3]{
+%   % \begin{scope}
+%   \matrix[mymat] at (0,0) (#1) {
+%     %   % #2
+%   };
+%   % % #3
+%   % \end{scope}
+% }
+
+\newcommand{\ketabsorption}[3]{\draw[photon,stealth-,decoration={pre length=2mm}] (#1-#2-2.south -| #1.west) --
+  ++(-8mm,-5mm) node[midway,anchor=north]{#3};}
+
+\newcommand{\braabsorption}[3]{\draw[photon,stealth-,decoration={pre length=2mm}] (#1-#2-2.south -| #1.east) --
+  ++(8mm,-5mm) node[midway,anchor=north]{#3};}
+
+\newcommand{\bracoulomb}[3]{\draw[red, thick, densely dashed] (#1-#2-2.south -| #1.east) --
+  ++(8mm,-5mm);}
+
+\let\pgfimageWithoutPath\pgfimage 
+\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[#1]{figures/#2}}
+
+\usepackage{mdframed}
+\mdfdefinestyle{beispielstyle}{%
+  backgroundcolor=red!5,%
+  frametitlebackgroundcolor=red!10,%
+}
+\mdtheorem[style=beispielstyle]{beispiel}{Example}
+\mdfdefinestyle{asidestyle}{%
+  backgroundcolor=green!5,%
+  frametitlebackgroundcolor=green!10,%
+}
+\mdtheorem[style=asidestyle]{aside}{Aside}
+
+\newcommand{\eqline}[1]{\textsc{\romannumeral#1}}

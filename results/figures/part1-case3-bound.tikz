@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+  \begin{semilogyaxis}[
+    xlabel={$n$},
+    ylabel={$P$ [au]}]
+    \addplot table [x index=0, y index=1]{inputs_part1/case3.1.bound_population};
+    \addplot table [x index=0, y index=2]{inputs_part1/case3.1.bound_population};
+    \addplot table [x index=0, y index=3]{inputs_part1/case3.1.bound_population};
+    \addplot table [x index=0, y index=4]{inputs_part1/case3.1.bound_population};
+    \addplot table [x index=0, y index=5]{inputs_part1/case3.1.bound_population};
+    \addplot table [x index=0, y index=6]{inputs_part1/case3.1.bound_population};
+    \addplot table [x index=0, y index=7]{inputs_part1/case3.1.bound_population};
+  \end{semilogyaxis}
+\end{tikzpicture}

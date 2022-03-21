@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+  \begin{semilogyaxis}[
+    xlabel={$W_k$ [Ha]},
+    ylabel={$P$ [au]},
+    no marks,
+    width=8cm, height=7cm]
+    \addplot table [x index=1, y index=2, restrict x to domain=0:4]{inputs_part1/case1.1.pes};
+    \addlegendentry{$F=0.1$ au}
+    
+    \addplot+ table [x index=1, y index=2, restrict x to domain=0:4]{inputs_part1/case1.2.pes};
+    \addlegendentry{$F=0.2$ au}
+  \end{semilogyaxis}
+\end{tikzpicture}

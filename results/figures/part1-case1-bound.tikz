@@ -1,0 +1,12 @@
+\begin{tikzpicture}
+  \begin{semilogyaxis}[
+    xlabel={$n$},
+    ylabel={$P$ [au]},
+    width=8cm, height=7cm]
+    \addplot table [x index=0, y index=1]{inputs_part1/case1.1.bound_population};
+    \addlegendentry{$F_0=0.1$ au}
+    
+    \addplot table [x index=0, y index=1]{inputs_part1/case1.2.bound_population};
+    \addlegendentry{$F_0=0.2$ au}
+  \end{semilogyaxis}
+\end{tikzpicture}

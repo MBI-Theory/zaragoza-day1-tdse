@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+  \begin{semilogyaxis}[
+    xticklabels=\empty,
+    ylabel={$P$ [au]},
+    legend style={
+      cells={anchor=west},
+      at={(0.05,0.05)},
+      anchor=south west
+    },
+    width=8cm, height=7cm]
+    \addplot table [x index=2, y index=4]{inputs_part1/case3.1.population};
+    \addlegendentry{Ionization yield}
+
+    \addplot table [x index=2, y index=5]{inputs_part1/case3.1.population};
+    \addlegendentry{Ground state population}
+
+    \addplot table [x index=2, y index=6]{inputs_part1/case3.1.population};
+    \addlegendentry{Excited population}
+  \end{semilogyaxis}
+  \begin{semilogyaxis}[
+    xlabel={$1/F$ [au]},
+    ylabel={$P$ [au]},
+    legend style={
+      cells={anchor=west},
+      at={(0.05,0.05)},
+      anchor=south west
+    },
+    width=8cm, height=7cm,
+    at={(0,-5.5cm)}]
+    \addplot table [x index=2, y index=7]{inputs_part1/case3.1.population};
+    \addplot table [x index=2, y index=8]{inputs_part1/case3.1.population};
+    \addplot table [x index=2, y index=9]{inputs_part1/case3.1.population};
+    \addplot table [x index=2, y index=10]{inputs_part1/case3.1.population};
+    \addplot table [x index=2, y index=11]{inputs_part1/case3.1.population};
+    \addplot table [x index=2, y index=12]{inputs_part1/case3.1.population};
+    \addplot table [x index=2, y index=13]{inputs_part1/case3.1.population};
+  \end{semilogyaxis}
+\end{tikzpicture}
