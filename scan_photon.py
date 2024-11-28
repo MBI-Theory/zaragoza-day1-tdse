@@ -66,13 +66,13 @@ def project_into_bstates(R, wf, alleigen, indices):
     amp = np.zeros((indices.size), dtype=np.complex128)
     for i in range(indices.size):
         integrand = normalize_vector(alleigen[:, i], R)
-        amp[i] = sp.integrate.simps(integrand * wf, x=R)
+        amp[i] = sp.integrate.simpson(integrand * wf, x=R)
     return amp
 
 
 # Calculate the norm of a given vector on the grid given by R
 def get_norm(vector, R):
-    return sp.integrate.simps(abs(vector)**2, x=R)
+    return sp.integrate.simpson(abs(vector)**2, x=R)
 # Integrate vector using samples along the given axis and the composite Simpson's rule.
 # R - the points at which vector is sampled.
 # Simpson's rule: approximating the integral of a function using quadratic polynomials
@@ -259,7 +259,7 @@ for i in range(list_of_omega.size):
         u = sp.sparse.linalg.spsolve(A, b)
 
 # Calculate the dipole length
-        dipole[time_step] = sp.integrate.simps((abs(u)**2)*x, x=x)
+        dipole[time_step] = sp.integrate.simpson((abs(u)**2)*x, x=x)
 # Keep the electric field and the vector potential just in case
         electric_field[time_step] = field
         vector_potential[time_step] = vectorpotential(E0, omega, time)

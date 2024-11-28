@@ -13,3 +13,5 @@
 *.synctex*
 *.tex
 /results/auto/
+/results/inputs*/
+/venv/
